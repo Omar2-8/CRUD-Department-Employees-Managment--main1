@@ -1,0 +1,132 @@
+<mat-toolbar>
+  <img style="width: 100px;" src="https://ai-elements.com/static/media/logo-colored.c0a3070a7d47659ed0b5.png" />
+     <span class="mx-2">   AiElements</span>
+  </mat-toolbar>
+  
+  <mat-sidenav-container>
+    <mat-sidenav class="mat-elevation-z8" opened="true" mode="side">
+      <img class="avatar mat-elevation-z8" src="https://source.unsplash.com/c_GmwfHBDzk/200x200" />
+        <br><br>
+          <h4 class="name">Omar AL-Ghouti</h4>
+          
+        <p class="designation">Admin</p>
+
+        <button mat-flat-button color="basic" class="m-2  px-5  w-150" routerLink="dashboard">
+          <mat-icon>home</mat-icon>
+          <span>Dashboard</span>
+      </button>
+
+        <button mat-flat-button color="basic" class=" m-2  px-5 w-150" routerLink="departments">
+            <mat-icon>home</mat-icon>
+            <span>Departments</span>
+        </button>
+        <button mat-flat-button color="basic" class="m-2  px-5 w-150" routerLink="employees">
+            <mat-icon>assignment_ind</mat-icon>
+            <span>Employees</span>
+        </button>
+        
+        <br>
+        <mat-divider class="m-2  px-5 " style=" border-top-color:aliceblue"></mat-divider>
+        <br>
+        
+
+        <button mat-flat-button color="basic" class="m-2  px-5 w-150 " routerLink="register">
+          <mat-icon>person</mat-icon>
+          <span>Sign Up</span>
+      </button>
+      <button mat-flat-button color="basic" class="m-2  px-5 w-150 " routerLink="login">
+          <mat-icon>login</mat-icon>
+          <span>Sign In</span>
+      </button>
+      
+
+       
+
+    </mat-sidenav>
+      
+      <mat-sidenav-content>
+          <div >
+             <router-outlet></router-outlet>
+          </div>
+      </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+
+
+
+
+  <!-- Content - rendered Content for the current router path into the <router-outlet>, e.g. /dashboard or /info-->
+  <!-- <mat-sidenav-content>
+    <mat-toolbar>
+      <h4>Hello everyone</h4>
+       
+    </mat-toolbar>
+   
+  </mat-sidenav-content>
+ -->
+
+
+
+
+
+<!-- <mat-sidenav-container class="example-container" autosize>
+	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
+		<mat-nav-list>
+			<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+				<span class="full-width" *ngIf="isExpanded || isShowing" >Map Site</span>
+				<mat-icon mat-list-icon>home</mat-icon>
+				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+			</mat-list-item>
+			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+				<a mat-list-item href="...">Department List</a>
+				<a mat-list-item href="...">Add Department</a>
+				<a mat-list-item href="...">Edit Departments</a>
+			</div>
+		</mat-nav-list>
+    <mat-nav-list>
+      <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+				<span *ngIf="isExpanded || isShowing">Employees</span>
+				<mat-icon mat-list-icon>home</mat-icon>
+				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+			</mat-list-item>
+    <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+				<a mat-list-item href="...">Employee List</a>
+				<a mat-list-item href="...">Add Employee</a>
+				<a mat-list-item href="...">Edit Employees</a>
+			</div> 
+    </mat-nav-list>
+    
+	</mat-sidenav>
+
+	<div class="example-sidenav-content">
+		Main content that resizes properly
+	</div>
+
+</mat-sidenav-container> -->
+
+
+
+
+
+
+<!-- <p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000" >
+  <h1 style="font-weight:normal">Home</h1>
+
+  <h3>Department</h3>
+  <p-button class="pt-2" type="button" routerLink="departments"  styleClass="p-button-secondary"><h6>Departments List</h6></p-button>
+  <p-button class="pt-2" type="button" routerLink="departments/add"  styleClass="p-button-secondary"><h6>Add Department</h6></p-button>
+  <p-button class="pt-2" type="button" routerLink="departments"  styleClass="p-button-secondary"><h6>Edit department</h6></p-button>
+  <hr>
+  <h3>Employee</h3>
+  <p-button class="pt-2" type="button" routerLink="employees"  styleClass="p-button-secondary"><h6>Employee List</h6></p-button>
+  <p-button class="pt-2" type="button" routerLink="employees/add"  styleClass="p-button-secondary"><h6>Add Employee</h6></p-button>
+  <p-button class="pt-2" type="button" routerLink="employees"  styleClass="p-button-secondary"><h6>Edit Employee</h6></p-button>
+</p-sidebar>
+
+<p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"></p-button> -->
+
+
+
+
+

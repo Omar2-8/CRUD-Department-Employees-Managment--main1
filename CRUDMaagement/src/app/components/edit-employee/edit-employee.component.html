@@ -1,0 +1,43 @@
+<div class="container my-5">
+  <h1 class="mb-3">Edit Employee</h1>
+
+  <div class="row">
+    <div class="col-6">
+      <form #form="ngForm" (ngSubmit)="updateEmployee()">
+
+        <div class="form-group" >
+          <label for="name">Employee Id</label>
+          <input readonly type="text" class="form-control-plaintext" id="Employee Name"
+            name="employeeid" [(ngModel)]="employeeDetails.id">
+        </div>
+        <div class="form-group">
+          <label for="Employee Name">Employee Name</label>
+          <input type="email" class="form-control" id="Employee Email" name="employeename"
+            [(ngModel)]="employeeDetails.employeeName">
+        </div>
+        <div class="form-group">
+          <label for="Employee Email">Employee Email</label>
+          <input type="email" class="form-control" id="Employee Email"
+            name="employeeEmail" [(ngModel)]="employeeDetails.employeeEmail">
+        </div>
+
+        <div class="form-group">
+          <label for="Salary">Salary</label>
+          <input type="number" class="form-control" id="Salary"
+          name="salary"  [(ngModel)]="employeeDetails.salary">
+        </div>
+
+        <div class="form-group">
+          <label for="name">Department</label>
+          <input readonly type="text"  class="form-control-plaintext" readonly id="departmentName"
+          name="departmentName" [(ngModel)]="employeeDetails.departmentEmployeeId">
+        </div>
+
+
+
+        <button type="submit" class="mt-3 btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+
+</div>

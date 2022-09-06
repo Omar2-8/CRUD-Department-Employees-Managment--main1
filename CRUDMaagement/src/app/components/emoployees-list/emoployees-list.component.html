@@ -1,0 +1,36 @@
+
+<div class="container my-5">
+
+  <h1 class="mb-3">Employees</h1>
+
+<button type="button " class="mb-5 mt-3 btn btn-primary" routerLink="add">Add Employee</button>
+
+  <table class="table" *ngIf="employees && employees.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Employee Email</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Department</th>
+        <th scope="col"> </th>
+        <th scope="col"> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{employee.id}}</td>
+        <td>{{employee.employeeName}}</td>
+        <td>{{employee.employeeEmail}}</td>
+        <td>{{employee.salary}}</td>
+        <td>{{findDepartment(employee.departmentEmployeeId)}}</td>
+        <td><button type="button" class="btn btn-secondary"[routerLink]="['edit',employee.id]">Edit</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button></td>
+
+          <!-- <button type="button" class="btn btn-danger">Delete</button> -->
+
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="!employees || employees.length<=0">No Employees Found</p>
+</div>

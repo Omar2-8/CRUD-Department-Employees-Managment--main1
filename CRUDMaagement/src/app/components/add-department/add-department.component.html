@@ -1,0 +1,31 @@
+<div class="container my-5">
+  <h1 class="mb-3">Add New Department</h1>
+
+  <div class="row">
+    <div class="ui-grid ui-grid-responsive">
+      <form [formGroup]="regForm" (ngSubmit)="onSubmit()" class="needs-validation">
+        <div class="col-lg-6 col-sm-12 mt-5 form-group">
+          
+
+          <span class="p-float-label">
+          <input
+           formControlName="DepartmentName" 
+           [ngClass]="{ 'is-invalid': submitted && regForm.controls.DepartmentName.errors }"
+          
+           id="float-input"
+           name="departmentName"
+           pInputText
+          > 
+          <label for="float-input">Department Name</label>
+        </span>
+          
+          <div *ngIf="submitted && regForm.controls.DepartmentName.errors" class="text-danger">
+            <div *ngIf="regForm.controls.DepartmentName.errors['required']">Department Name is required</div>
+          </div>
+          </div>
+        <button type="submit" class="mt-3 btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,21 @@
+    
+    
+    
+    
+<h2 class="text-center">Admin Dashboard</h2>
+
+<div class="col-lg-6 col-sm-6 mx-auto  ">
+<mat-card class="mx-auto">
+
+      
+        <span class="border ">
+            <div class="card ">
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+</div>
+</span>
+
+
+
+<div class="ml-3">
+<p-button (click)="DownloadToExcel()">Export Data to Excel</p-button>
+</div></mat-card></div>

@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFAPI", "EFAPI\EFAPI.csproj", "{8650AE06-842B-4223-85B0-3AB828476FD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C46D402E-027E-47EB-BE76-136935A7DB38}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8650AE06-842B-4223-85B0-3AB828476FD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8650AE06-842B-4223-85B0-3AB828476FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8650AE06-842B-4223-85B0-3AB828476FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8650AE06-842B-4223-85B0-3AB828476FD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59E79438-EBFB-4314-8C1B-1063561E95AE}
+	EndGlobalSection
+EndGlobal
