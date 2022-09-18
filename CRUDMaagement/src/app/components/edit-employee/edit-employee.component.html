@@ -7,8 +7,8 @@
 
         <div class="form-group" >
           <label for="name">Employee Id</label>
-          <input readonly type="text" class="form-control-plaintext" id="Employee Name"
-            name="employeeid" [(ngModel)]="employeeDetails.id">
+          <input readonly type="text" class="form-control-plaintext" id="employeeID"
+            name="employeeID" [(ngModel)]="employeeDetails.id">
         </div>
         <div class="form-group">
           <label for="Employee Name">Employee Name</label>
@@ -17,20 +17,28 @@
         </div>
         <div class="form-group">
           <label for="Employee Email">Employee Email</label>
-          <input type="email" class="form-control" id="Employee Email"
-            name="employeeEmail" [(ngModel)]="employeeDetails.employeeEmail">
+          <input
+           type="email" 
+           class="form-control" 
+           id="Employee Email"
+           name="employeeEmail"
+          [(ngModel)]="employeeDetails.employeeEmail">
         </div>
 
         <div class="form-group">
-          <label for="Salary">Salary</label>
-          <input type="number" class="form-control" id="Salary"
-          name="salary"  [(ngModel)]="employeeDetails.salary">
+          <label for="employee Salary">Salary</label>
+          <input
+          type="number"
+          class="form-control"
+          d="employee Salary"
+          name="employee Salary" 
+          [(ngModel)]="employeeDetails.salary">
         </div>
 
         <div class="form-group">
           <label for="name">Department</label>
-          <input readonly type="text"  class="form-control-plaintext" readonly id="departmentName"
-          name="departmentName" [(ngModel)]="employeeDetails.departmentEmployeeId">
+          <input readonly type="text"  class="form-control-plaintext" readonly id="departmentID"
+          name="departmentID" [(ngModel)]="employeeDetails.departmentEmployeeId">
         </div>
 
 

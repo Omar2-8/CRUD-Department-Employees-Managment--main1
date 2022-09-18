@@ -1,23 +1,32 @@
 ﻿using EFAPI.Models;
 using EFAPI.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Web.Services3.Security.Utility;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace EFAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    
     public class AccountsController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-
+        private readonly IConfiguration _configuration;
         public AccountsController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -52,24 +61,54 @@ namespace EFAPI.Controllers
                 throw;
             }
         }
-
+        
         [HttpPost]
+        [AllowAnonymous]
+        
         public async Task<IActionResult> LoginUser([FromBody]UserLoginDTO userLogin)
         {
             try
             {
-                var x = await _userManager.FindByEmailAsync(userLogin.Email);
+                var user = await _userManager.FindByEmailAsync(userLogin.Email);
 
-                var result = await _signInManager.PasswordSignInAsync(x, userLogin.Password,false,false);   
+                var result = await _signInManager.PasswordSignInAsync(user, userLogin.Password,false,false);
 
                 
-                if (!result.Succeeded)
-                {
-                    return BadRequest(result);
-                       
+
+                if (result.Succeeded)
+                { 
+                    var userRoles = await _userManager.GetRolesAsync(user);
+
+                    var issuer = _configuration["Jwt:Issuer"];
+                    var audience = _configuration["Jwt:Audience"];
+                    var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+                    var tokenDescriptor = new SecurityTokenDescriptor {
+                        Subject = new ClaimsIdentity(new[]
+                             {
+                                new Claim(ClaimTypes.Role, userRoles[0]),
+                                new Claim(ClaimTypes.Email,userLogin.Email),
+                                new Claim(JwtRegisteredClaimNames.Aud,audience),
+                                new Claim(JwtRegisteredClaimNames.Iss,issuer)
+ }),
+                            Expires = DateTime.UtcNow.AddMinutes(60),
+                             Issuer = issuer,
+                             Audience = audience,
+                        SigningCredentials = new SigningCredentials
+                         (new SymmetricSecurityKey(key),
+                         SecurityAlgorithms.HmacSha512Signature)
+                    };
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    var jwtToken = tokenHandler.WriteToken(token);
+                    var stringToken = tokenHandler.WriteToken(token);
+
+                    return Ok(new AuthenticatedResponse { Token = stringToken });
                 }
-                 return Ok();
-              // return BadRequest(result);
+                else
+                { 
+                    return Unauthorized(); 
+                }
+
 
             }
             catch (Exception e)

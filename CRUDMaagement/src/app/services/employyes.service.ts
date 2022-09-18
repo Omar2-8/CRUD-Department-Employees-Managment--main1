@@ -25,9 +25,20 @@ baseApiUrl:string = environment.baseApiUrl;
   getEmployee(id:string):Observable<Employee>{
     return this.http.get<Employee>(this.baseApiUrl +'/api/Employees/GetEmployeesById?id=' + id);
   }
+  
+  getEmployeeByEmail(email:string):Observable<Employee>{
+    return this.http.get<Employee>(this.baseApiUrl +'/api/Employees/GetEmployeesByEmail?email=' + email);
+  }
 
   updateEmployee(id:number,updateEmployeereq:Employee):Observable<Employee>{
     return this.http.post<Employee>(this.baseApiUrl +'/api/Employees/EditEmoloyee?id='+ id ,updateEmployeereq)
+  }
+
+  uplodeEmployeeImg(id:number,file: File):Observable<Employee>{
+    return this.http.post<Employee>(this.baseApiUrl +'/api/Employees/uploadimg?id=',file)
+  }
+  uplodeEmployeeCv(id:number,file: File):Observable<Employee>{
+    return this.http.post<Employee>(this.baseApiUrl +'/api/Employees/uploadCv?id=',file)
   }
 
   deleteEmployee(id:number):Observable<Employee>{

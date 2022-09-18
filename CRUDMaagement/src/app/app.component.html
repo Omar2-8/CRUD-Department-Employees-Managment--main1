@@ -1,63 +1,19 @@
 <mat-toolbar>
   <img style="width: 100px;" src="https://ai-elements.com/static/media/logo-colored.c0a3070a7d47659ed0b5.png" />
-     <span class="mx-2">   AiElements</span>
-  </mat-toolbar>
-  
-  <mat-sidenav-container>
-    <mat-sidenav class="mat-elevation-z8" opened="true" mode="side">
-      <img class="avatar mat-elevation-z8" src="https://source.unsplash.com/c_GmwfHBDzk/200x200" />
-        <br><br>
-          <h4 class="name">Omar AL-Ghouti</h4>
-          
-        <p class="designation">Admin</p>
-
-        <button mat-flat-button color="basic" class="m-2  px-5  w-150" routerLink="dashboard">
-          <mat-icon>home</mat-icon>
-          <span>Dashboard</span>
-      </button>
-
-        <button mat-flat-button color="basic" class=" m-2  px-5 w-150" routerLink="departments">
-            <mat-icon>home</mat-icon>
-            <span>Departments</span>
-        </button>
-        <button mat-flat-button color="basic" class="m-2  px-5 w-150" routerLink="employees">
-            <mat-icon>assignment_ind</mat-icon>
-            <span>Employees</span>
-        </button>
-        
-        <br>
-        <mat-divider class="m-2  px-5 " style=" border-top-color:aliceblue"></mat-divider>
-        <br>
-        
-
-        <button mat-flat-button color="basic" class="m-2  px-5 w-150 " routerLink="register">
-          <mat-icon>person</mat-icon>
-          <span>Sign Up</span>
-      </button>
-      <button mat-flat-button color="basic" class="m-2  px-5 w-150 " routerLink="login">
-          <mat-icon>login</mat-icon>
-          <span>Sign In</span>
-      </button>
-      
+  <span class="mx-2"> AiElements</span>
+</mat-toolbar>
 
        
-
-    </mat-sidenav>
-      
-      <mat-sidenav-content>
-          <div >
-             <router-outlet></router-outlet>
-          </div>
-      </mat-sidenav-content>
-  </mat-sidenav-container>
+        <router-outlet></router-outlet>
+       
+ 
 
 
 
 
 
-
-  <!-- Content - rendered Content for the current router path into the <router-outlet>, e.g. /dashboard or /info-->
-  <!-- <mat-sidenav-content>
+<!-- Content - rendered Content for the current router path into the <router-outlet>, e.g. /dashboard or /info-->
+<!-- <mat-sidenav-content>
     <mat-toolbar>
       <h4>Hello everyone</h4>
        
@@ -125,8 +81,3 @@
 </p-sidebar>
 
 <p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right"></p-button> -->
-
-
-
-
-

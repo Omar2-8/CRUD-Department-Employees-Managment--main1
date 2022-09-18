@@ -1,5 +1,6 @@
 ﻿using EFAPI.Data;
 using EFAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,7 @@ namespace EFAPI.Controllers
             _context = context;
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
 
         public async Task<IActionResult> ImportFromExcel( IFormFile file)
         {

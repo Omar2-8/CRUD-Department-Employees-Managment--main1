@@ -26,7 +26,7 @@ namespace EFAPI.Controllers
 
         //get list
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetDepartmentList()
         {
             if (_context.Departments == null)
@@ -49,7 +49,7 @@ namespace EFAPI.Controllers
         }
 
         //get by id 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetDepartmentById(int id)
         {
             try
@@ -67,7 +67,7 @@ namespace EFAPI.Controllers
         }
 
         //add 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddDepartment(Department department)
         {
             try
@@ -85,7 +85,7 @@ namespace EFAPI.Controllers
 
 
         // delete
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
             try
@@ -107,7 +107,7 @@ namespace EFAPI.Controllers
 
 
         //edit
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateDepartment(int id,Department department)
         {
             try

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace EFAPI.Controllers
 {
@@ -20,6 +21,7 @@ namespace EFAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult DashboardData()
         {
             try
@@ -29,11 +31,15 @@ namespace EFAPI.Controllers
                 List<DashboardDTO> dashboardDTOs = new List<DashboardDTO>();
                 foreach(var department in departments)
                 {
+                    //"select Salary from Emoloyees where Emoloyees.DepartmentEmployeeId == department.ID"
+
+                   
                     dashboardDTOs.Add(new DashboardDTO
                     {
                         DepartmentName = department.DepartmentName,
-                        EmployeeCount = _context.Emoloyees.Where(x => x.DepartmentEmployeeId == department.ID).Count()
-                    });
+                        EmployeeCount = _context.Emoloyees.Where(x => x.DepartmentEmployeeId == department.ID).Count(),
+                        departmentSalaryCount= _context.Emoloyees.Where(x => x.DepartmentEmployeeId == department.ID).Select(x=>x.Salary).Sum()
+                });
                 }
 
                 return Ok(dashboardDTOs);
@@ -51,5 +57,7 @@ namespace EFAPI.Controllers
     {
         public String DepartmentName { get; set; }
         public int EmployeeCount { get; set; }
+
+        public int departmentSalaryCount { get; set; }
     }
 }

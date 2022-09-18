@@ -13,11 +13,13 @@ export class EditEmployeeComponent implements OnInit {
 
   employeeDetails:Employee={
     id: 0,
-    employeeEmail: '',
     employeeName: '',
+    employeeEmail: '',
     salary: 0,
-    departmentEmployeeId:0,
-}
+    departmentEmployeeId: 0,
+    img: '',
+    cv: ''
+  }
   constructor(private route:ActivatedRoute,private empService:EmployyesService,private router : Router) { }
 
   ngOnInit(): void {

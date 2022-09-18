@@ -1,4 +1,5 @@
 export interface DepartmentsDTO{
     departmentName:string,
-    employeeCount:number
+    employeeCount:number,
+    departmentSalaryCount:number
 }

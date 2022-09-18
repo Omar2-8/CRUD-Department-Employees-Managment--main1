@@ -4,6 +4,7 @@ namespace EFAPI.Models
 {
     public class ApplicationUser : IdentityUser
     {
+       
         
     }
 }

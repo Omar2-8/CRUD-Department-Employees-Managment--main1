@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginUser } from 'src/app/models/Accounts.model';
+import { AuthenticatedResponse, LoginUser } from 'src/app/models/Accounts.model';
 import { AccountsService } from 'src/app/services/accounts.service';
 
 @Component({
@@ -10,7 +10,8 @@ import { AccountsService } from 'src/app/services/accounts.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  invalidLogin!: boolean;
+  roleId!:string;
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required]),
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   login() {
+    debugger
     if (!this.loginForm.valid) {
       return;
     }
@@ -36,11 +38,19 @@ export class LoginComponent implements OnInit {
       this.loginUser.password=this.loginForm.value.password as string;
 
       this.loginuser.LoginUser(this.loginUser).subscribe({
-        next:()=>{
-          this.router.navigate(['dashboard'])
-
+        next:(response:AuthenticatedResponse)=>{
+           
+          const token = response.token;
+          localStorage.setItem("jwt", token); 
+          this.invalidLogin = false; 
+          this.roleId=JSON.parse(window.atob(localStorage.getItem("jwt")!.split('.')[1]))["role"];
+          if(this.roleId=="Admin")
+          this.router.navigate(['dashboard']);
+          else
+          this.router.navigate(['page']);
         },
         error:(er: any)=>{
+          this.invalidLogin=true;
           console.log(er);
           
         }

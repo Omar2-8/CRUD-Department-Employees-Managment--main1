@@ -18,11 +18,11 @@ export class EmoployeesListComponent implements OnInit {
   constructor(private employyesService:EmployyesService ,private departmentsService:DepartmentsService) { }
 
   ngOnInit(): void {
-
+      
     this.employyesService.getAllEmployees()
     .subscribe({
-      next:(employees)=>{
-        this.employees=employees;
+      next:(emp)=>{
+        this.employees=emp;
       },
       error:(er)=>{
         console.log(er);

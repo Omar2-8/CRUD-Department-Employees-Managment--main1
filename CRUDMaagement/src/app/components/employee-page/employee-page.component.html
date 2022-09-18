@@ -1,0 +1,65 @@
+<div class="container my-5">
+    <h1 class="mb-3">My Details </h1>
+  
+    <div class="row">
+      <div class="col-6">
+        <form #form="ngForm" (ngSubmit)="updateEmployee()">
+
+          <div class="m-5 form-group" >
+            <img src="employeeDetails.img" class="rounded float-right" alt="Employee Image">
+          </div>
+          <div class="form-group" >
+            <label for="name">My Employee Id</label>
+            <input readonly type="text" class="form-control-plaintext" id="employeeID"
+              name="employeeID" [(ngModel)]="employeeDetails.id">
+          </div>
+          <div class="form-group">
+            <label for="Employee Name">My Name</label>
+            <input readonly type="email" class="form-control" id="Employee Email" name="employeename"
+              [(ngModel)]="employeeDetails.employeeName">
+          </div>
+          <div class="form-group">
+            <label for="Employee Email">My Email</label>
+            <input readonly
+             type="email" 
+             class="form-control" 
+             id="Employee Email"
+             name="employeeEmail"
+            [(ngModel)]="employeeDetails.employeeEmail">
+          </div>
+  
+          <div class="form-group">
+            <label readonly for="employee Salary">My Salary</label>
+            <input
+            type="number"
+            class="form-control"
+            d="employee Salary"
+            name="employee Salary" 
+            [(ngModel)]="employeeDetails.salary">
+          </div>
+  
+          <div class="form-group">
+            <label  readonly for="name">My Department</label>
+            <input readonly type="text"  class="form-control-plaintext" readonly id="departmentID"
+            name="departmentID" [(ngModel)]="employeeDetails.departmentEmployeeId">
+          </div>
+  
+
+          
+          <div class="col-lg-12 col-sm-12 pt-5 form-group" (click)="uploadFile.click()">
+            <button mat-raised-button class="w-50 "  color="primary">Upload My photo</button>
+            <input #uploadFile  (change)=" uploadimgFile($event)" type='file' style="display:none" />
+          </div>
+
+          <div class="col-lg-12 col-sm-12  pt-5 form-group" (click)="uploadFile.click()">
+            <button class="w-50" mat-raised-button color="primary">Upload My CV</button>
+            <input #uploadFile  (change)=" uploadCvFile($event)" type='file' style="display:none" />
+          </div>
+  
+          <button type="submit" class="mt-3 btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  
+  </div>
+  

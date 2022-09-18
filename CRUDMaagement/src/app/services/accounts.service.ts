@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { LoginUser, RegiterUser } from '../models/Accounts.model';
+import { AuthenticatedResponse, LoginUser, RegiterUser } from '../models/Accounts.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,8 @@ export class AccountsService {
   }
 
 
-  LoginUser(loginUserReq: LoginUser): Observable<LoginUser> {
-    return this.http.post<LoginUser>(
+  LoginUser(loginUserReq: LoginUser): Observable<AuthenticatedResponse> {
+    return this.http.post<AuthenticatedResponse>(
       this.baseApiUrl + '/api/Accounts/LoginUser',
       JSON.stringify(loginUserReq),
       {headers:this.headers}

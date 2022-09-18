@@ -18,7 +18,10 @@ namespace EFAPI.Models
         [Remote("IsAlreadySignedUp", "Validation", ErrorMessage = "EmailId already exists in database.")]
         public string EmployeeEmail { get; set; }
         [Required]
-        public int Salary { get; set; }
+        public int Salary { get; set; } 
+
+        public string employeePhoto { get; set; }
+        public string employeeCV { get; set; }
 
         [Required]
         [ForeignKey("Department")]

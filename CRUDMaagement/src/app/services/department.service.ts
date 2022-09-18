@@ -1,6 +1,6 @@
 import { Department } from './../models/deprtment.model';
 import { environment } from './../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from '../models/employee.model';
@@ -11,7 +11,8 @@ import { DepartmentsDTO } from '../models/departmentsDTO.model';
 })
 export class DepartmentsService {
 baseApiUrl:string = environment.baseApiUrl;
-
+headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' 
+ });
   constructor(private http:HttpClient) { }
 
 

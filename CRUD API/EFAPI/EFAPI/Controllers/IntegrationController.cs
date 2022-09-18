@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EFAPI.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -21,7 +22,7 @@ namespace EFAPI.Controllers
            
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index()
         {
             using (var client = new HttpClient())
@@ -48,7 +49,7 @@ namespace EFAPI.Controllers
         }
    
 
-    [HttpPost]
+    [HttpPost, Authorize(Roles = "Admin")]
     public async  Task<IActionResult> send(string x)
     {
         

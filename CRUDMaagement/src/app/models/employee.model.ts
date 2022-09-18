@@ -4,5 +4,7 @@ export interface Employee{
   employeeEmail:string;
   salary:number;
   departmentEmployeeId:number;
+  img:string;
+  cv:string
   
 }

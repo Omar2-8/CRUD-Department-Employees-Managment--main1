@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmoployeesListComponent } from './components/emoployees-list/emoployees-list.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {  ReactiveFormsModule } from '@angular/forms';
 import { DepartmentListComponent } from './components/department-list/department-list.component';
 import { AddDepartmentComponent } from './components/add-department/add-department.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
@@ -56,6 +56,19 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { JwtModule } from "@auth0/angular-jwt";
+import { FormsModule } from '@angular/forms';
+import { EmployeePageComponent } from './components/employee-page/employee-page.component';
+import { TokenInterceptor } from './shared/TokenInterceptor';
+import { SidenaveComponent } from './shared/sidenave/sidenave.component';
+import { UnauthrizedComponent } from './components/unauthrized/unauthrized.component';
+
+export function tokenGetter() { 
+  return localStorage.getItem("jwt"); 
+}
+
 
 @NgModule({
   declarations: [
@@ -69,6 +82,9 @@ import { LoginComponent } from './components/login/login.component';
     DashboardComponent,
     RegisterComponent,
     LoginComponent,
+    EmployeePageComponent,
+    SidenaveComponent,
+    UnauthrizedComponent,
     
     
     
@@ -122,16 +138,33 @@ import { LoginComponent } from './components/login/login.component';
     MatPaginatorModule,
     ButtonModule,
     MatButtonModule,
-    MatDividerModule
-
-
+    MatDividerModule,
+    TranslateModule.forRoot({
+      loader: { 
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps:[HttpClient]
+      }
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5001"],
+        disallowedRoutes: []
+      }
+    })
     
-
-   
     
     
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

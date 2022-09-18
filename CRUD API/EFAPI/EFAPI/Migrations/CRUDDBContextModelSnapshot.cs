@@ -61,6 +61,12 @@ namespace EFAPI.Migrations
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
+                    b.Property<string>("employeeCV")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("employeePhoto")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.HasIndex("DepartmentEmployeeId");
