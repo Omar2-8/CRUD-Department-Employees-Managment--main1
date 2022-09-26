@@ -96,8 +96,8 @@ namespace EFAPI.Controllers
 
         }
 
-        // GET by id
-        [HttpGet, Authorize(Roles = "Admin")]
+        // GET by id, Authorize(Roles = "Admin")
+        [HttpGet]
         public async Task<ActionResult> GetEmployeesById(int id)
         {
            
@@ -114,7 +114,9 @@ namespace EFAPI.Controllers
             }
       
         }
-        [HttpGet, Authorize(Roles = "Admin")]
+        //, Authorize(Roles = "Admin")
+
+        [HttpGet]
         public async Task<ActionResult> GetEmployeesByEmail(string email)
         {
 
@@ -157,11 +159,11 @@ namespace EFAPI.Controllers
             }
         }
 
-        // add
-        [HttpPost, Authorize(Roles = "Admin")]
+        // add, Authorize(Roles = "Admin")
+        [HttpPost]
         public async Task<ActionResult> AddEmployee( Employee employee)
         {
-            
+
             var DublicateEmployeeEmail = (_context.Emoloyees?.Any(e => e.EmployeeEmail == employee.EmployeeEmail)).GetValueOrDefault();
             if (DublicateEmployeeEmail)
             {
@@ -173,7 +175,7 @@ namespace EFAPI.Controllers
             {
                 
                 string Password = CreatePassword(8);
-                sendEmail(employee.EmployeeEmail, Password);
+                // sendEmail(employee.EmployeeEmail, Password);
 
                 //add to employee model
                 _context.Emoloyees.Add(employee);
@@ -182,14 +184,15 @@ namespace EFAPI.Controllers
                 //add application user
                 var user = new ApplicationUser
                 {
-                   
+                    
                     Email = employee.EmployeeEmail,
                     UserName = employee.EmployeeName,
+                    
                 };
                 
 
-                var result = await _userManager.CreateAsync(user,Password );
-                await _userManager.AddToRoleAsync(user,"Employee");
+                var result = await _userManager.CreateAsync(user, employee.EmployeeName+1);
+                await _userManager.AddToRoleAsync(user, "Employee");
 
 
                 return Ok();
@@ -199,6 +202,33 @@ namespace EFAPI.Controllers
                 throw;
             }
           }
+
+        [HttpPost]
+        public async Task<ActionResult> AddToApplicationUseer(string email,string username,string role)
+        {
+            try
+            {
+               // string Password = CreatePassword(8);
+                var user = new ApplicationUser
+                {
+
+                    Email = email,
+                    UserName = username,
+
+                };
+
+
+                var result = await _userManager.CreateAsync(user, username+1);
+                await _userManager.AddToRoleAsync(user, role);
+
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> uploadimg(int id , IFormFile img)

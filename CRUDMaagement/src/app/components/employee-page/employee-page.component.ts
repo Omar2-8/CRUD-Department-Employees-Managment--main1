@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { Employee } from 'src/app/models/employee.model';
 import { EmployyesService } from 'src/app/services/employyes.service';
 
@@ -10,7 +11,7 @@ import { EmployyesService } from 'src/app/services/employyes.service';
 })
 export class EmployeePageComponent implements OnInit {
 
-  
+
 
   email=JSON.parse(window.atob(localStorage.getItem("jwt")!.split('.')[1]))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
 
@@ -21,12 +22,13 @@ export class EmployeePageComponent implements OnInit {
     salary: 0,
     departmentEmployeeId: 0,
     img: '',
-    cv: ''
+    cv: '',
+    subUnitId: 0
   }
-  
+
   constructor(private route:ActivatedRoute,private empService:EmployyesService,private router : Router) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
 
     this.empService.getEmployeeByEmail(this.email).subscribe({
       next:(res)=>{
@@ -37,7 +39,7 @@ export class EmployeePageComponent implements OnInit {
   }
 
   updateEmployee(){
-    
+
     this.empService.updateEmployee(this.employeeDetails.id,this.employeeDetails)
     .subscribe({
       next:(res)=>{
@@ -46,39 +48,39 @@ export class EmployeePageComponent implements OnInit {
     })
   }
   uploadimgFile = (files:Event) => {
-   
+
     let fileToUpload = <File><unknown>files;
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
 
     this.empService.uplodeEmployeeImg(this.employeeDetails.id,fileToUpload).subscribe({
         next:(event)=>{
-          
+
         },
         error:(er)=>{
           console.log(er);
-          
+
         }
     })
 
   }
   uploadCvFile = (files:Event) => {
-    
+
     let fileToUpload = <File><unknown>files;
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
 
     this.empService.uplodeEmployeeCv(this.employeeDetails.id,fileToUpload).subscribe({
         next:(event)=>{
-          
+
         },
         error:(er)=>{
           console.log(er);
-          
+
         }
     })
 
   }
-   
+
 
 }

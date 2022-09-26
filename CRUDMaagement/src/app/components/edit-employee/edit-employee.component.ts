@@ -18,7 +18,8 @@ export class EditEmployeeComponent implements OnInit {
     salary: 0,
     departmentEmployeeId: 0,
     img: '',
-    cv: ''
+    cv: '',
+    subUnitId: 0
   }
   constructor(private route:ActivatedRoute,private empService:EmployyesService,private router : Router) { }
 
@@ -39,7 +40,7 @@ export class EditEmployeeComponent implements OnInit {
     })
   }
   updateEmployee(){
-    
+
     this.empService.updateEmployee(this.employeeDetails.id,this.employeeDetails)
     .subscribe({
       next:(res)=>{

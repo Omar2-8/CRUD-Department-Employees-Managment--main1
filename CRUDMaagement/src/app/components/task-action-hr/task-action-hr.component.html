@@ -1,0 +1,256 @@
+<div class="container my-5 mr-5">
+  <h1 class="mb-3">Add New Employee Request</h1>
+
+  <div class="container-fluid">
+    <div class="ui-grid ui-grid-responsive">
+      <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-lg-12 col-sm-12">
+            <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <span class="p-float-label">
+                <input
+                  pInputText
+                  required
+                  type="text"
+                  class="form-control"
+                  id=" userName"
+                  name="userName"
+                  formControlName="userName"
+                  [ngClass]="{
+                    'is-invalid': submitted && regForm.controls.userName.errors
+                  }"
+                />
+                <label for="userName"> userName</label>
+              </span>
+              <div
+                *ngIf="submitted && regForm.controls.userName.errors"
+                class="text-danger"
+              >
+                <div *ngIf="regForm.controls.userName.errors['required']">
+                  User Name is required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <span class="p-float-label">
+                <input
+                  pInputText
+                  required
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  formControlName="email"
+                  [ngClass]="{
+                    'is-invalid': submitted && regForm.controls.email.errors
+                  }"
+                />
+
+                <label for="Employee Email"> Email</label>
+              </span>
+              <div
+                *ngIf="submitted && regForm.controls.email.errors"
+                class="text-danger"
+              >
+                <div *ngIf="regForm.controls.email.errors['required']">
+                  Employee Email is required
+                </div>
+                <div *ngIf="regForm.controls.email.errors['email']">
+                  This is not an Email
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <span class="p-float-label">
+                <input
+                  pInputText
+                  required
+                  type="text"
+                  class="form-control"
+                  id=" salary"
+                  name="salary"
+                  formControlName="salary"
+                  [ngClass]="{
+                    'is-invalid': submitted && regForm.controls.salary.errors
+                  }"
+                />
+                <label for="salary"> Salary</label>
+              </span>
+              <div
+                *ngIf="submitted && regForm.controls.salary.errors"
+                class="text-danger"
+              >
+                <div *ngIf="regForm.controls.salary.errors['required']">
+                  Salary is required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <span class="p-float-label">
+                <input
+                  pInputText
+                  required
+                  type="text"
+                  class="form-control"
+                  id="insuranceNumber"
+                  name="insuranceNumber"
+                  formControlName="insuranceNumber"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && regForm.controls.insuranceNumber.errors
+                  }"
+                />
+                <label for="insuranceNumber">Insurance Number</label>
+              </span>
+              <div
+                *ngIf="submitted && regForm.controls.insuranceNumber.errors"
+                class="text-danger"
+              >
+                <div
+                  *ngIf="regForm.controls.insuranceNumber.errors['required']"
+                >
+                  Insurance Number is required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <span class="p-float-label">
+                <input
+                  pInputText
+                  required
+                  type="date"
+                  class="form-control"
+                  id="Salary"
+                  name="joiningDate"
+                  formControlName="joiningDate"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && regForm.controls.joiningDate.errors
+                  }"
+                />
+                <label for="joiningDate">Joining Date</label>
+              </span>
+              <div
+                *ngIf="submitted && regForm.controls.joiningDate.errors"
+                class="text-danger"
+              >
+                <div *ngIf="regForm.controls.joiningDate.errors['required']">
+                  Joining Date is required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <span class="p-float-label">
+                <input
+                  pInputText
+                  required
+                  type="text"
+                  class="form-control"
+                  id="DepartmentID"
+                  name="DepartmentID"
+                  formControlName="DepartmentID"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && regForm.controls.DepartmentID.errors
+                  }"
+                />
+                <label for="DepartmentID">Department ID</label>
+              </span>
+              <div
+                *ngIf="submitted && regForm.controls.DepartmentID.errors"
+                class="text-danger"
+              >
+                <div *ngIf="regForm.controls.DepartmentID.errors['required']">
+                  Department ID is required
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <span class="p-float-label">
+                <input
+                  pInputText
+                  required
+                  type="text"
+                  class="form-control"
+                  id="Salary"
+                  name="SubUnitID"
+                  formControlName="SubUnitID"
+                  [ngClass]="{
+                    'is-invalid': submitted && regForm.controls.SubUnitID.errors
+                  }"
+                />
+                <label for="SubUnitID">Unit ID</label>
+              </span>
+              <div
+                *ngIf="submitted && regForm.controls.SubUnitID.errors"
+                class="text-danger"
+              >
+                <div *ngIf="regForm.controls.SubUnitID.errors['required']">
+                  Unit ID is required
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <label for="Department">Department</label>
+              <div class="dropdown">
+
+
+                  <select formControlName="Departmentid" name="Department" class="form-select"
+                  [ngClass]="{ 'is-invalid': submitted && regForm.controls.Departmentid.errors }">
+
+                    <option *ngFor="let department of departments" [ngValue]="department.id">
+                      {{department.departmentName}}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && regForm.controls.Departmentid.errors" class="text-danger">
+                    <div *ngIf="regForm.controls.Departmentid.errors['required']">Department Name is required</div>
+                  </div>
+
+              </div>
+            </div> -->
+
+            <!-- <div class="col-lg-6 col-sm-12 mt-5 form-group">
+
+
+              <span class="p-float-label">
+                <p-dropdown [autoDisplayFirst]="false" formControlName="Departmentid" inputId="dropdown"
+                  optionLabel="name" optionGroupLabel="name"
+                  [ngClass]="{ 'is-invalid': submitted && regForm.controls.Departmentid.errors }">
+
+                  <option *ngFor="let department of departments" [ngValue]="department.id">
+                    {{department.departmentName}}
+                  </option>
+                </p-dropdown>
+                <label for="dropdown">Department</label>
+
+                <div *ngIf="submitted && regForm.controls.Departmentid.errors" class="text-danger">
+                  <div *ngIf="regForm.controls.Departmentid.errors['required']">Department Name is required</div>
+                </div>
+              </span>
+
+
+
+
+            </div> -->
+          </div>
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <button
+          id="Save"
+          type="submit"
+          class="col-lg-2 col-sm-6 mt-3 mx-2 btn btn-primary"
+        >
+          Send Request
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,10 @@ namespace EFAPI.Models
         [Required]
         public string DepartmentName { get; set; }
 
+        
 
+
+         
+        public ICollection<SubUnit> SubUnits { get; set; }
     }
 }

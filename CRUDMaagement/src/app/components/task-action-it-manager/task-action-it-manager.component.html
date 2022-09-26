@@ -1,0 +1,63 @@
+<div class="m-5">
+  <button (click)="isShown = !isShown" mat-raised-button color="primary">
+    {{ isShown === false ? "Request" : "Cancel Request" }} Employee
+  </button>
+  <mat-card-content *ngIf="isShown" class="row">
+    <form [formGroup]="reqForm" (ngSubmit)="request()">
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Employee job</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            formControlName="employeeJob"
+          />
+          <mat-error
+            *ngIf="
+              this.reqForm.get('employeeJob')?.touched &&
+              this.reqForm.get('employeeJob')?.hasError('required')
+            "
+          >
+            Employee Job is required</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Employee Experince</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            formControlName="employeeExperience"
+          />
+          <mat-error
+            *ngIf="
+              this.reqForm.get('employeeExperience')?.touched &&
+              this.reqForm.get('employeeExperience')?.hasError('required')
+            "
+          >
+            employee Experience is required</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Any Comments ?</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            formControlName="comments"
+          />
+        </mat-form-field>
+      </div>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="!reqForm.valid"
+      >
+        Send Request
+      </button>
+    </form>
+  </mat-card-content>
+</div>

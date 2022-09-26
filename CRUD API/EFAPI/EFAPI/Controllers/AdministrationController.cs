@@ -18,8 +18,8 @@ namespace EFAPI.Controllers
             _roleManager = roleManager;
             
         }
-
-        [HttpPost, Authorize(Roles = "Admin")]
+            //, Authorize(Roles = "Admin")
+        [HttpPost]
         public async Task<IActionResult> createeRole(string roleName)
         {
             try

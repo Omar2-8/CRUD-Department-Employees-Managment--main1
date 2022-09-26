@@ -48,6 +48,27 @@ namespace EFAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetDepartmen(Models.Task t)
+        {
+            if (_context.Departments == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                IEnumerable<Department> departments = _context.Departments;
+
+                return Ok(departments);
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
         //get by id 
         [HttpGet, Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetDepartmentById(int id)

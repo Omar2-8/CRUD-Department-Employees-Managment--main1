@@ -1,0 +1,203 @@
+<div class="container my-5 mr-5">
+  <h1 class="mb-3">Add New Employee Request</h1>
+
+  <div class="container-fluid">
+    <div class="ui-grid ui-grid-responsive">
+      <form>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12">
+            <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <span class="p-float-label">
+                <input
+                  readonly
+                  pInputText
+                  required
+                  type="text"
+                  [(ngModel)]="createEmployee.userName"
+                  id=" userName"
+                  name="userName"
+                />
+                <label for="userName"> userName</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-12 mt-5 form-group">
+            <span class="p-float-label">
+              <input
+                readonly
+                pInputText
+                required
+                type="Email"
+                [(ngModel)]="createEmployee.Email"
+                id="Email"
+                name="Email"
+              />
+
+              <label for="Employee Email"> Email</label>
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 mt-5 form-group">
+          <span class="p-float-label">
+            <input
+              readonly
+              pInputText
+              required
+              type="text"
+              [(ngModel)]="createEmployee.salary"
+              id=" salary"
+              name="salary"
+            />
+            <label for="salary"> Salary</label>
+          </span>
+        </div>
+
+        <div class="col-lg-6 col-sm-12 mt-5 form-group">
+          <span class="p-float-label">
+            <input
+              readonly
+              pInputText
+              required
+              type="text"
+              [(ngModel)]="createEmployee.insuranceNumber"
+              id="insuranceNumber"
+              name="insuranceNumber"
+            />
+            <label for="insuranceNumber">Insurance Number</label>
+          </span>
+        </div>
+
+        <div class="col-lg-6 col-sm-12 mt-5 form-group">
+          <span class="p-float-label">
+            <input
+              readonly
+              pInputText
+              required
+              type="date"
+              [(ngModel)]="createEmployee.joiningDate"
+              id="joiningDate"
+              name="joiningDate"
+            />
+            <label for="joiningDate">Joining Date</label>
+          </span>
+        </div>
+        <div class="col-lg-6 col-sm-12 mt-5 form-group">
+          <span class="p-float-label">
+            <input
+              pInputText
+              readonly
+              required
+              type="text"
+              [(ngModel)]="createEmployee.departmeentID"
+              id="DepartmentID"
+              name="departmenetID"
+            />
+            <label for="DepartmentID">Department ID</label>
+          </span>
+        </div>
+        <div class="col-lg-6 col-sm-12 mt-5 form-group">
+          <span class="p-float-label">
+            <input
+              pInputText
+              readonly
+              required
+              type="text"
+              [(ngModel)]="createEmployee.subUnitID"
+              id="Salary"
+              name="subUnitID"
+            />
+            <label for="SubUnitID">Unit ID</label>
+          </span>
+        </div>
+
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          (click)="accept()"
+        >
+          Acceept the Request
+        </button>
+        <button
+          mat-raised-button
+          color="danger"
+          (click)="isRejected = !isRejected"
+        >
+          {{
+            isRejected === false ? "Reject the Request " : "Cancel Rejection"
+          }}
+        </button>
+
+        <div class="col-4" *ngIf="isRejected" [formGroup]="reqForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Why the Rejection</mat-label>
+            <input
+              matInput
+              placeholder="Placeholder"
+              formControlName="comments"
+            />
+            <mat-error
+              *ngIf="
+                this.reqForm.get('comments')?.touched &&
+                this.reqForm.get('comments')?.hasError('required')
+              "
+            >
+              Comments is required</mat-error
+            >
+          </mat-form-field>
+
+          <button mat-raised-button color="danger" (click)="reject()">
+            Reject
+          </button>
+        </div>
+        <!-- <div class="col-lg-6 col-sm-12 mt-5 form-group">
+              <label for="Department">Department</label>
+              <div class="dropdown">
+
+
+                  <select formControlName="Departmentid" name="Department" class="form-select"
+                  [ngClass]="{ 'is-invalid': submitted && regForm.controls.Departmentid.errors }">
+
+                    <option *ngFor="let department of departments" [ngValue]="department.id">
+                      {{department.departmentName}}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && regForm.controls.Departmentid.errors" class="text-danger">
+                    <div *ngIf="regForm.controls.Departmentid.errors['required']">Department Name is required</div>
+                  </div>
+
+              </div>
+            </div> -->
+
+        <!-- <div class="col-lg-6 col-sm-12 mt-5 form-group">
+
+
+              <span class="p-float-label">
+                <p-dropdown [autoDisplayFirst]="false" formControlName="Departmentid" inputId="dropdown"
+                  optionLabel="name" optionGroupLabel="name"
+                  [ngClass]="{ 'is-invalid': submitted && regForm.controls.Departmentid.errors }">
+
+                  <option *ngFor="let department of departments" [ngValue]="department.id">
+                    {{department.departmentName}}
+                  </option>
+                </p-dropdown>
+                <label for="dropdown">Department</label>
+
+                <div *ngIf="submitted && regForm.controls.Departmentid.errors" class="text-danger">
+                  <div *ngIf="regForm.controls.Departmentid.errors['required']">Department Name is required</div>
+                </div>
+              </span>
+
+
+
+
+            </div> -->
+
+        <br />
+        <br />
+        <br />
+      </form>
+    </div>
+  </div>
+</div>

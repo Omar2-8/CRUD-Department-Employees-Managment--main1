@@ -65,8 +65,25 @@ import { TokenInterceptor } from './shared/TokenInterceptor';
 import { SidenaveComponent } from './shared/sidenave/sidenave.component';
 import { UnauthrizedComponent } from './components/unauthrized/unauthrized.component';
 
-export function tokenGetter() { 
-  return localStorage.getItem("jwt"); 
+import { TaskListComponent } from './components/task-list/task-list.component';
+import {TableModule} from 'primeng/table';
+import {RatingModule} from 'primeng/rating';
+
+import { HRTaskListComponent } from './components/hr-task-list/hr-task-list.component';
+
+import { HrManagerTaskListComponent } from './components/hr-manager-task-list/hr-manager-task-list.component';
+import { TaskActionHrManagerComponent } from './components/task-action-hr-manager/task-action-hr-manager.component';
+import { FinanceTaskListComponent } from './components/finance-task-list/finance-task-list.component';
+import { TaskActionFinanceComponent } from './components/task-action-finance/task-action-finance.component';
+import { ItTaskListComponent } from './components/it-task-list/it-task-list.component';
+import { TaskActionItComponent } from './components/task-action-it/task-action-it.component';
+import { TaskActionItManagerComponent } from './components/task-action-it-manager/task-action-it-manager.component';
+import { ItDepartmentDirectorTaskListComponent } from './components/it-department-director-task-list/it-department-director-task-list.component';
+import { TaskActionItDirectorComponent } from './components/task-action-it-director/task-action-it-director.component';
+import { TaskActionHrComponent } from './components/task-action-hr/task-action-hr.component';
+
+export function tokenGetter() {
+  return localStorage.getItem("jwt");
 }
 
 
@@ -85,10 +102,18 @@ export function tokenGetter() {
     EmployeePageComponent,
     SidenaveComponent,
     UnauthrizedComponent,
-    
-    
-    
-    
+    TaskListComponent,
+    HRTaskListComponent,
+    HrManagerTaskListComponent,
+    TaskActionHrManagerComponent,
+    FinanceTaskListComponent,
+    TaskActionFinanceComponent,
+    ItTaskListComponent,
+    TaskActionItComponent,
+    TaskActionItManagerComponent,
+    ItDepartmentDirectorTaskListComponent,
+    TaskActionItDirectorComponent,
+    TaskActionHrComponent
 
   ],
   imports: [
@@ -108,6 +133,12 @@ export function tokenGetter() {
     RippleModule,
     BrowserModule,
     BrowserAnimationsModule,
+    ButtonModule,
+    MatButtonModule,
+    MatDividerModule,
+    TableModule,
+    FormsModule,
+    RatingModule,
     MatInputModule,
     MatAutocompleteModule,
     MatDatepickerModule,
@@ -136,11 +167,10 @@ export function tokenGetter() {
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    ButtonModule,
-    MatButtonModule,
-    MatDividerModule,
+
+
     TranslateModule.forRoot({
-      loader: { 
+      loader: {
         provide: TranslateLoader,
         useFactory: httpTranslateLoader,
         deps:[HttpClient]
@@ -152,10 +182,11 @@ export function tokenGetter() {
         allowedDomains: ["localhost:5001"],
         disallowedRoutes: []
       }
-    })
-    
-    
-    
+    }),
+
+
+
+
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

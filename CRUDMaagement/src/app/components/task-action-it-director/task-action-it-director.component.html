@@ -1,0 +1,72 @@
+<div class="m-5">
+  <mat-card-content class="row">
+    <form>
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Task Discreption</mat-label>
+          <input readonly matInput [(ngModel)]="task.action" name="action" />
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Employee job</mat-label>
+          <input
+            readonly
+            matInput
+            [(ngModel)]="registerReq.employeeJob"
+            name="employeeJob"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Employee Experince</mat-label>
+          <input
+            readonly
+            matInput
+            placeholder="Placeholder"
+            [(ngModel)]="registerReq.employeeExperince"
+            name="employeeExperince"
+          />
+        </mat-form-field>
+      </div>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        (click)="accept()"
+      >
+        Acceept the Request
+      </button>
+      <button
+        mat-raised-button
+        color="danger"
+        (click)="isRejected = !isRejected"
+      >
+        {{ isRejected === false ? "Reject the Request " : "Cancel Rejection" }}
+      </button>
+      <div class="col-4" *ngIf="isRejected">
+        <mat-form-field appearance="outline">
+          <mat-label>Why the Rejection</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            formControlName="comments"
+          />
+          <mat-error
+            *ngIf="
+              this.reqForm.get('comments')?.touched &&
+              this.reqForm.get('comments')?.hasError('required')
+            "
+          >
+            Comments is required</mat-error
+          >
+        </mat-form-field>
+
+        <button mat-raised-button color="danger" (click)="reject()">
+          Reject
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</div>
