@@ -22,6 +22,56 @@ namespace EFAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("EFAPI.Models.CreateEmployee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("DepartmeentID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DepartmentIDID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Employee")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InsuranceNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("JoiningDay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RequestEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubUnitID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentIDID");
+
+                    b.HasIndex("Employee");
+
+                    b.ToTable("CreateEmployee");
+                });
+
             modelBuilder.Entity("EFAPI.Models.Department", b =>
                 {
                     b.Property<int>("ID")
@@ -58,6 +108,10 @@ namespace EFAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployeeRole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
@@ -80,6 +134,39 @@ namespace EFAPI.Migrations
                     b.ToTable("Emoloyees");
                 });
 
+            modelBuilder.Entity("EFAPI.Models.RequestEmployeeForm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeeExperince")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeeJob")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReuqusterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubUnitRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubUnitRequestId");
+
+                    b.ToTable("RequestEmployeeForm");
+                });
+
             modelBuilder.Entity("EFAPI.Models.SubUnit", b =>
                 {
                     b.Property<int>("Id")
@@ -95,7 +182,7 @@ namespace EFAPI.Migrations
 
                     b.HasIndex("DepartmentSubUnitId");
 
-                    b.ToTable("SubUnits");
+                    b.ToTable("SubUnit");
                 });
 
             modelBuilder.Entity("EFAPI.Models.Task", b =>
@@ -111,11 +198,7 @@ namespace EFAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comments")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("EmployeeID")
-                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -125,9 +208,9 @@ namespace EFAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeID");
+                    b.HasIndex("TaskEmployeeId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Task");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -328,6 +411,21 @@ namespace EFAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EFAPI.Models.CreateEmployee", b =>
+                {
+                    b.HasOne("EFAPI.Models.Department", "DepartmentID")
+                        .WithMany()
+                        .HasForeignKey("DepartmentIDID");
+
+                    b.HasOne("EFAPI.Models.Employee", "Manager")
+                        .WithMany()
+                        .HasForeignKey("Employee");
+
+                    b.Navigation("DepartmentID");
+
+                    b.Navigation("Manager");
+                });
+
             modelBuilder.Entity("EFAPI.Models.Employee", b =>
                 {
                     b.HasOne("EFAPI.Models.Department", "Department")
@@ -355,6 +453,36 @@ namespace EFAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EFAPI.Models.SubUnit", "SubUnit")
+                        .WithMany("Employees")
+                        .HasForeignKey("SubUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("SubUnit");
+                });
+
+            modelBuilder.Entity("EFAPI.Models.RequestEmployeeForm", b =>
+                {
+                    b.HasOne("EFAPI.Models.SubUnit", "SubUnit")
+                        .WithMany()
+                        .HasForeignKey("SubUnitRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SubUnit");
+                });
+
+            modelBuilder.Entity("EFAPI.Models.SubUnit", b =>
+                {
+                    b.HasOne("EFAPI.Models.Department", "Department")
+                        .WithMany("SubUnits")
+                        .HasForeignKey("DepartmentSubUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Department");
                 });
 
@@ -362,7 +490,9 @@ namespace EFAPI.Migrations
                 {
                     b.HasOne("EFAPI.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeID");
+                        .HasForeignKey("TaskEmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
                 });
@@ -423,6 +553,16 @@ namespace EFAPI.Migrations
                     b.Navigation("Director")
                         .IsRequired();
 
+                    b.Navigation("SubUnits");
+                });
+
+            modelBuilder.Entity("EFAPI.Models.SubUnit", b =>
+                {
+                    b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("EFAPI.Models.Department", b =>
+                {
                     b.Navigation("SubUnits");
                 });
 

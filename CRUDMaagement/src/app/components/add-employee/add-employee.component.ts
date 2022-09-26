@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css'] 
+  styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
-  
+
   isBusy!:boolean;
   messageValidate={
     employeeEmail:{
@@ -26,7 +26,7 @@ export class AddEmployeeComponent implements OnInit {
     EmployeeEmail:new FormControl('',[Validators.required,Validators.email]),
     EmployeeSalary:new FormControl('',Validators.required),
     Departmentid:new FormControl('',Validators.required),
-    
+
   })
 
   addEmployeeReq:Employee={
@@ -36,7 +36,8 @@ export class AddEmployeeComponent implements OnInit {
     salary: 0,
     departmentEmployeeId: 0,
     img: '',
-    cv: ''
+    cv: '',
+    subUnitId: 0
   }
   @ViewChild('teams') teams!: ElementRef;
   departments:Department[]=[];
@@ -52,7 +53,7 @@ export class AddEmployeeComponent implements OnInit {
 
     this.regForm.valueChanges.subscribe(x=>{
       if(this.regForm.status=='VALID'){
-        console.log('form valid'); 
+        console.log('form valid');
 
         this.isBusy=false;
       }
@@ -77,7 +78,7 @@ export class AddEmployeeComponent implements OnInit {
       }
     });
 
-    
+
 
 
   }
@@ -107,7 +108,7 @@ this.departmentService.getAllDepartments()
    message='This Email already Exist! Try another one';
 
 
- 
+
   // isEmailExists(){
   //   const email=this.regForm.value.EmployeeEmail;
   //   if(email!=null && email!=''&& this.isBusy===false){

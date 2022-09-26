@@ -1,9 +1,11 @@
-﻿using EFAPI.Models;
+﻿using EFAPI.Data;
+using EFAPI.Models;
 using EFAPI.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Web.Services3.Security.Utility;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,13 +22,16 @@ namespace EFAPI.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly CRUDDBContext _context;
         public AccountsController(UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            CRUDDBContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _context = context;
         }
 
         [HttpPost]
@@ -63,13 +68,14 @@ namespace EFAPI.Controllers
         }
         
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         
         public async Task<IActionResult> LoginUser([FromBody]UserLoginDTO userLogin)
         {
             try
             {
                 var user = await _userManager.FindByEmailAsync(userLogin.Email);
+                var employee = _context.Emoloyees.Include(x => x.Department).SingleOrDefault(x => x.EmployeeEmail == userLogin.Email);
 
                 var result = await _signInManager.PasswordSignInAsync(user, userLogin.Password,false,false);
 
@@ -87,6 +93,11 @@ namespace EFAPI.Controllers
                              {
                                 new Claim(ClaimTypes.Role, userRoles[0]),
                                 new Claim(ClaimTypes.Email,userLogin.Email),
+                                new Claim(ClaimTypes.Actor,employee.Department.DepartmentName),
+                                 
+
+                               // new Claim(ClaimTypes.Actor,employee.employeeRole),
+
                                 new Claim(JwtRegisteredClaimNames.Aud,audience),
                                 new Claim(JwtRegisteredClaimNames.Iss,issuer)
  }),
