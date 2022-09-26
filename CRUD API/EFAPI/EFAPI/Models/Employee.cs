@@ -6,6 +6,7 @@ namespace EFAPI.Models
 {
     public class Employee
     {
+       
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Employee Id")]
@@ -27,6 +28,12 @@ namespace EFAPI.Models
         [ForeignKey("Department")]
         public int DepartmentEmployeeId { get; set; }
         public Department Department { get; set; }
+
+        [Required]
+        [ForeignKey("SubUnit")]
+        public int SubUnitId { get; set; }
+        public SubUnit SubUnit { get; set; }  
+         
     }
 
 

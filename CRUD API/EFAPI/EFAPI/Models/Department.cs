@@ -12,6 +12,12 @@ namespace EFAPI.Models
         [Required]
         public string DepartmentName { get; set; }
 
+        [Required]
+        public Employee Director { get; set; }
+
+        public ICollection<SubUnit> SubUnits { get; set; }
+
+
 
     }
 }

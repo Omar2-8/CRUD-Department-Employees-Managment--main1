@@ -1,6 +1,7 @@
 ﻿using EFAPI.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Task = EFAPI.Models.Task;
 
 namespace EFAPI.Data
 {
@@ -13,6 +14,15 @@ namespace EFAPI.Data
         public DbSet<Employee> Emoloyees { get; set; }
         public DbSet<Department> Departments { get; set; }
 
-       
+        public DbSet<SubUnit> SubUnits { get; set; }
+
+        public DbSet<Task> Tasks { get; set; }
+
+
+
+
+
+
+
     }
 }
