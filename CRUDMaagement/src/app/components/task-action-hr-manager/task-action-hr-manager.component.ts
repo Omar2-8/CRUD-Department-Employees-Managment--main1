@@ -1,6 +1,6 @@
 import { CreateEmployee } from './../../models/CreateEmployee.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowService } from 'src/app/services/workflow.service';
 import { SidenaveComponent } from 'src/app/shared/sidenave/sidenave.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +14,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class TaskActionHrManagerComponent implements OnInit {
 
-  constructor(private route:ActivatedRoute,private workflowService:WorkflowService, private data:DataService) { }
+  constructor(private route:ActivatedRoute,private workflowService:WorkflowService, private data:DataService,private router:Router) { }
 
   reqForm=new FormGroup({
     comments:new FormControl(null,Validators.required),
@@ -25,20 +25,20 @@ export class TaskActionHrManagerComponent implements OnInit {
    task:Tasks={
     id: 0,
     action: '',
-    comments: '',
-    status: 0,
+    Comments: '',
+    Status: 0,
     TaskEmployeeId: 0
   }
 
   createEmployee:CreateEmployee={
     id: 0,
-    requestEmployeeId: 0,
+    RequestEmployeeId: 0,
     salary: 0,
-    Email: '',
+    email: '',
     userName: '',
     insuranceNumber: '',
     joiningDate: new Date,
-    departmeentID:0,
+    
     subUnitID: 0,
 
   }
@@ -67,9 +67,10 @@ ngOnInit(): void {
   }
 
    accept(){
-     this.data.currentUserId.subscribe(x=> this.createEmployee.requestEmployeeId  = x);
+     this.data.currentUserId.subscribe(x=> this.createEmployee.RequestEmployeeId  = x);
      this.workflowService.hrManagerApprove(this.createEmployee).subscribe({
         next:()=>{
+          this.router.navigate(['page']);
         },
         error:(er: any)=>{
           console.log(er);
@@ -79,12 +80,13 @@ ngOnInit(): void {
 
   }
   reject(){
-    this.task.comments=this.reqForm.value.comments as unknown as string ;
+    this.task.Comments=this.reqForm.value.comments as unknown as string ;
     this.data.currentUserId.subscribe(x=> this.task.TaskEmployeeId = x);
 
 
     this.workflowService.rejectRequest(this.task).subscribe({
         next:()=>{
+          this.router.navigate(['page']);
         },
         error:(er: any)=>{
           console.log(er);

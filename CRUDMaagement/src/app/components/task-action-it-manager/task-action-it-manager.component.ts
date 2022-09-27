@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RequestForm } from 'src/app/models/Task.model';
 import { DataService } from 'src/app/services/data.service';
 import { WorkflowService } from 'src/app/services/workflow.service';
@@ -12,7 +13,7 @@ import { SidenaveComponent } from 'src/app/shared/sidenave/sidenave.component';
 })
 export class TaskActionItManagerComponent implements OnInit {
 
-  constructor(private workflowService:WorkflowService,private data:DataService) { }
+  constructor(private workflowService:WorkflowService,private data:DataService,private router:Router) { }
   isShown: boolean = false;
 
   reqForm=new FormGroup({
@@ -24,7 +25,7 @@ export class TaskActionItManagerComponent implements OnInit {
   newEmplloyeeRequest:RequestForm={
     employeeJob: '',
     employeeExperince: '',
-    subUnitRequestId: 0,
+    SubUnitRequestId: 0,
     comments: '',
     ReuqusterId: 0
   }
@@ -40,7 +41,7 @@ export class TaskActionItManagerComponent implements OnInit {
 
     this.workflowService.RegiterReq(this.newEmplloyeeRequest).subscribe({
         next:()=>{
-
+          this.router.navigate(['page']);
 
         },
         error:(er: any)=>{
@@ -51,7 +52,7 @@ export class TaskActionItManagerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.data.currentUserId.subscribe(x=> this.newEmplloyeeRequest.ReuqusterId = x);
-    this.data.currentSubUnitId.subscribe(x=> this.newEmplloyeeRequest.subUnitRequestId  = x);
+    this.data.currentSubUnitId.subscribe(x=> this.newEmplloyeeRequest.SubUnitRequestId  = x);
   }
 
 

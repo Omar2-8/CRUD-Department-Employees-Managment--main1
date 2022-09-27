@@ -87,8 +87,8 @@ namespace EFAPI.Controllers
 
         }
 
-        //add 
-        [HttpPost, Authorize(Roles = "Admin")]
+        //add , Authorize(Roles = "Admin")
+        [HttpPost]
         public async Task<IActionResult> AddDepartment(Department department)
         {
             try

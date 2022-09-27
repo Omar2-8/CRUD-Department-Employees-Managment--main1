@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tasks,RequestForm } from 'src/app/models/Task.model';
 import { DataService } from 'src/app/services/data.service';
 import { WorkflowService } from 'src/app/services/workflow.service';
@@ -20,8 +20,8 @@ export class TaskActionItDirectorComponent implements OnInit {
   task:Tasks={
     id: 0,
     action: '',
-    comments: '',
-    status: 0,
+    Comments: '',
+    Status: 0,
     TaskEmployeeId: 0
   }
 
@@ -30,11 +30,11 @@ export class TaskActionItDirectorComponent implements OnInit {
     employeeJob: '',
     employeeExperince: '',
     comments: '',
-    subUnitRequestId: 0
+    SubUnitRequestId: 0
   }
 
 
-  constructor(private route:ActivatedRoute,private workflowService:WorkflowService, private data:DataService) { }
+  constructor(private route:ActivatedRoute,private workflowService:WorkflowService, private data:DataService,private router:Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
@@ -64,7 +64,7 @@ export class TaskActionItDirectorComponent implements OnInit {
     this.data.currentUserId.subscribe(x=> this.registerReq.ReuqusterId  = x);
 
      this.workflowService.createNewEmployeeRequest(this.registerReq).subscribe({
-        next:()=>{
+        next:()=>{ this.router.navigate(['page']);
         },
         error:(er: any)=>{
           console.log(er);
@@ -74,11 +74,11 @@ export class TaskActionItDirectorComponent implements OnInit {
 
   }
   reject(){
-    this.task.comments=this.reqForm.value.comments as unknown as string ;
+    this.task.Comments=this.reqForm.value.comments as unknown as string ;
     this.data.currentUserId.subscribe(x=> this.task.TaskEmployeeId  = x);
 
     this.workflowService.rejectRequest(this.task).subscribe({
-        next:()=>{
+        next:()=>{ this.router.navigate(['page']);
         },
         error:(er: any)=>{
           console.log(er);

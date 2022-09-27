@@ -191,8 +191,8 @@ namespace EFAPI.Controllers
                 };
                 
 
-                var result = await _userManager.CreateAsync(user, employee.EmployeeName+1);
-                await _userManager.AddToRoleAsync(user, "Employee");
+                var result = await _userManager.CreateAsync(user, employee.EmployeeName+ employee.EmployeeName + 1);
+                await _userManager.AddToRoleAsync(user, "Director");
 
 
                 return Ok();
@@ -238,7 +238,7 @@ namespace EFAPI.Controllers
                 var employee = _context.Emoloyees.Find(id);
 
                 if (img!=null)
-                employee.employeePhoto =  saveImg(employee.EmployeeName,img);
+                employee.EmployeePhoto =  saveImg(employee.EmployeeName,img);
 
                 return Ok();
 
@@ -258,7 +258,7 @@ namespace EFAPI.Controllers
                 var employee = _context.Emoloyees.Find(id);
 
                if(CV != null) 
-               employee.employeeCV = saveCV(employee.EmployeeName, CV);
+               employee.EmployeeCV = saveCV(employee.EmployeeName, CV);
 
                 return Ok();
 

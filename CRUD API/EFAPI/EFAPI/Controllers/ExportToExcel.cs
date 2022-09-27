@@ -33,7 +33,7 @@ namespace EFAPI.Controllers
 
             try
             {
-                List<Employee> employee = _context.Emoloyees.Include(dep => dep.Department).ToList();
+                List<Employee> employee = _context.Emoloyees.Include(dep => dep.SubUnit).ToList();
                 
 
                 
@@ -84,7 +84,7 @@ namespace EFAPI.Controllers
                         row1.CreateCell(0).SetCellValue(emp.EmployeeName);
                         row1.CreateCell(1).SetCellValue(emp.EmployeeEmail);
                         row1.CreateCell(2).SetCellValue(emp.Salary);
-                        row1.CreateCell(3).SetCellValue(emp.Department.DepartmentName);
+                       // row1.CreateCell(3).SetCellValue(emp.Department.DepartmentName);
                         row1.GetCell(0).CellStyle = style;
                         row1.GetCell(1).CellStyle = style;
                         row1.GetCell(2).CellStyle = style;

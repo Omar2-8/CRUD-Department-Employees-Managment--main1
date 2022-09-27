@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EFAPI.Migrations
 {
-    public partial class addingIdentity : Migration
+    public partial class newmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,19 @@ namespace EFAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Departments",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Departments", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +167,119 @@ namespace EFAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SubUnit",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DepartmentSubUnitId = table.Column<int>(type: "int", nullable: true),
+                    SubUintName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubUnit", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubUnit_Departments_DepartmentSubUnitId",
+                        column: x => x.DepartmentSubUnitId,
+                        principalTable: "Departments",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CreateEmployee",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RequestEmployeeId = table.Column<int>(type: "int", nullable: false),
+                    Salary = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InsuranceNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JoiningDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SubUnitID = table.Column<int>(type: "int", nullable: true),
+                    TaskId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CreateEmployee", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CreateEmployee_SubUnit_SubUnitID",
+                        column: x => x.SubUnitID,
+                        principalTable: "SubUnit",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Emoloyees",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeRole = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salary = table.Column<int>(type: "int", nullable: false),
+                    EmployeePhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeCV = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubUnitId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Emoloyees", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Emoloyees_SubUnit_SubUnitId",
+                        column: x => x.SubUnitId,
+                        principalTable: "SubUnit",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequestEmployeeForm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReuqusterId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeJob = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeExperince = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubUnitRequestId = table.Column<int>(type: "int", nullable: true),
+                    TaskId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestEmployeeForm", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RequestEmployeeForm_SubUnit_SubUnitRequestId",
+                        column: x => x.SubUnitRequestId,
+                        principalTable: "SubUnit",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Task",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    TaskEmployeeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Task", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Task_Emoloyees_TaskEmployeeId",
+                        column: x => x.TaskEmployeeId,
+                        principalTable: "Emoloyees",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +318,31 @@ namespace EFAPI.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CreateEmployee_SubUnitID",
+                table: "CreateEmployee",
+                column: "SubUnitID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Emoloyees_SubUnitId",
+                table: "Emoloyees",
+                column: "SubUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequestEmployeeForm_SubUnitRequestId",
+                table: "RequestEmployeeForm",
+                column: "SubUnitRequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubUnit_DepartmentSubUnitId",
+                table: "SubUnit",
+                column: "DepartmentSubUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Task_TaskEmployeeId",
+                table: "Task",
+                column: "TaskEmployeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +363,28 @@ namespace EFAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CreateEmployee");
+
+            migrationBuilder.DropTable(
+                name: "RequestEmployeeForm");
+
+            migrationBuilder.DropTable(
+                name: "Task");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Emoloyees");
+
+            migrationBuilder.DropTable(
+                name: "SubUnit");
+
+            migrationBuilder.DropTable(
+                name: "Departments");
         }
     }
 }

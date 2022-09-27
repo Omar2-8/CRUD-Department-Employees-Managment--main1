@@ -75,7 +75,7 @@ namespace EFAPI.Controllers
             try
             {
                 var user = await _userManager.FindByEmailAsync(userLogin.Email);
-                var employee = _context.Emoloyees.Include(x => x.Department).SingleOrDefault(x => x.EmployeeEmail == userLogin.Email);
+                var employee = _context.Emoloyees.Include(x => x.SubUnit).Include(x => x.SubUnit.Department).SingleOrDefault(x => x.EmployeeEmail == userLogin.Email);
 
                 var result = await _signInManager.PasswordSignInAsync(user, userLogin.Password,false,false);
 
@@ -93,7 +93,7 @@ namespace EFAPI.Controllers
                              {
                                 new Claim(ClaimTypes.Role, userRoles[0]),
                                 new Claim(ClaimTypes.Email,userLogin.Email),
-                                new Claim(ClaimTypes.Actor,employee.Department.DepartmentName),
+                                new Claim(ClaimTypes.Actor,employee.SubUnit.Department.DepartmentName),
                                  
 
                                // new Claim(ClaimTypes.Actor,employee.employeeRole),

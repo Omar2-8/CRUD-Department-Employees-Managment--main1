@@ -34,12 +34,12 @@ namespace EFAPI.Controllers
                     //"select Salary from Emoloyees where Emoloyees.DepartmentEmployeeId == department.ID"
 
                    
-                    dashboardDTOs.Add(new DashboardDTO
+                   /* dashboardDTOs.Add(new DashboardDTO
                     {
                         DepartmentName = department.DepartmentName,
                         EmployeeCount = _context.Emoloyees.Where(x => x.DepartmentEmployeeId == department.ID).Count(),
                         departmentSalaryCount= _context.Emoloyees.Where(x => x.DepartmentEmployeeId == department.ID).Select(x=>x.Salary).Sum()
-                });
+                });*/
                 }
 
                 return Ok(dashboardDTOs);

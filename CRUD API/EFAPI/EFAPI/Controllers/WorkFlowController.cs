@@ -55,8 +55,8 @@ namespace EFAPI.Controllers
         public async Task<IActionResult> GetTasks()
         {
             try
-            {
-                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).Include(x => x.Employee.Department);
+            {//.Include(x => x.Employee.SubUnit.Department)
+                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee);
 
                 return Ok(Tasks);
             }
@@ -71,9 +71,9 @@ namespace EFAPI.Controllers
         public async Task<IActionResult> GetHRTasks()
         {
             try
-            {
-                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).Include(x => x.Employee.Department).
-                    Where(x=>x.Employee.Department.DepartmentName == "IT" && x.Employee.EmployeeRole== "Director");
+            {//.Include(x => x.Employee.SubUnit.Department).
+                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).
+                    Where(x=>x.Employee.SubUnit.Department.DepartmentName == "IT" && x.Employee.EmployeeRole== "Director");
 
                 return Ok(Tasks);
             }
@@ -88,9 +88,9 @@ namespace EFAPI.Controllers
         public async Task<IActionResult> GetITTasks()
         {
             try
-            {
-                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).Include(x => x.Employee.Department).
-                    Where(x => x.Employee.Department.DepartmentName == "Finance");
+            {//.Include(x => x.Employee.SubUnit.Department)
+                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).
+                    Where(x => x.Employee.SubUnit.Department.DepartmentName == "Finance");
 
                 return Ok(Tasks);
             }
@@ -105,9 +105,9 @@ namespace EFAPI.Controllers
         public async Task<IActionResult> GetFinanceTasks()
         {
             try
-            {
-                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).Include(x => x.Employee.Department).
-                    Where(x => x.Employee.Department.DepartmentName == "HR" && x.Employee.EmployeeRole == "Manager");
+            {//.Include(x => x.Employee.SubUnit.Department)
+                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).
+                    Where(x => x.Employee.SubUnit.Department.DepartmentName == "HR" && x.Employee.EmployeeRole == "Manager");
 
                 return Ok(Tasks);
             }
@@ -122,9 +122,9 @@ namespace EFAPI.Controllers
         public async Task<IActionResult> GetHrManagerTasks()
         {
             try
-            {
-                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).Include(x => x.Employee.Department).
-                    Where(x => x.Employee.Department.DepartmentName == "HR");
+            {//.Include(x => x.Employee.SubUnit.Department)
+                IEnumerable<Models.Task> Tasks = _context.Task.Include(x => x.Employee).
+                    Where(x => x.Employee.SubUnit.Department.DepartmentName == "HR");
 
                 return Ok(Tasks);
             }
@@ -172,8 +172,8 @@ namespace EFAPI.Controllers
         public async Task<IActionResult> getEmployeeRequest(int id)
         {
             try
-            {
-                var employeeRequest = _context.RequestEmployeeForm.Include(x => x.SubUnit).Include(x => x.SubUnit.Department).First(x=>x.TaskId == id);
+            {//.Include(x => x.SubUnit.Department)
+                var employeeRequest = _context.RequestEmployeeForm.Include(x => x.SubUnit).First(x=>x.TaskId == id);
 
                 return Ok(employeeRequest);
 
@@ -200,6 +200,8 @@ namespace EFAPI.Controllers
                 _context.SaveChanges();
                 requestEmployeeForm.TaskId = task.Id;
                 requestEmployeeForm.Id = 0;
+                requestEmployeeForm.SubUnit.Id = 0;
+
                 _context.RequestEmployeeForm.Add(requestEmployeeForm);
                 _context.SaveChanges();
 
@@ -266,6 +268,8 @@ namespace EFAPI.Controllers
                 _context.Task.Add(task);
                 _context.SaveChanges();
                 createEmployee.TaskId = task.Id;
+                createEmployee.Id = 0;
+                //createEmployee.SubUnit.Id = 0;
 
                 _context.CreateEmployee.Add(createEmployee);
                 _context.SaveChanges();
@@ -295,6 +299,7 @@ namespace EFAPI.Controllers
                 _context.SaveChanges();
                 createEmployee.TaskId = task.Id;
                 createEmployee.Id = 0;
+                createEmployee.SubUnit.Id = 0;
                 _context.CreateEmployee.Add(createEmployee);
                 _context.SaveChanges();
 
@@ -322,6 +327,7 @@ namespace EFAPI.Controllers
                 _context.SaveChanges();
                 createEmployee.TaskId = task.Id;
                 createEmployee.Id = 0;
+                createEmployee.SubUnit.Id = 0;
                 _context.CreateEmployee.Add(createEmployee);
                 _context.SaveChanges();
 
@@ -346,13 +352,14 @@ namespace EFAPI.Controllers
                 employee.EmployeeName = createEmployee.UserName;
                 employee.EmployeeEmail= createEmployee.Email;
                 employee.EmployeeRole = "Proggrammer";
-                employee.Salary=createEmployee.Salary;
+                employee.Salary = createEmployee.Salary;
                 employee.SubUnitId = createEmployee.SubUnitID;
-                employee.DepartmentEmployeeId = createEmployee.SubUnit.DepartmentSubUnitId;
+                //employee.SubUnit.DepartmentSubUnitId = createEmployee.SubUnit.DepartmentSubUnitId;
 
-                var manager = _context.Emoloyees.Where(x => x.EmployeeRole == "Manager" && x.SubUnitId == employee.SubUnitId).First();
+                var manager = _context.Emoloyees.Include(x => x.SubUnit).Include(x => x.SubUnit.Department)
+                    .Where(x => x.EmployeeRole == "Manager" && x.SubUnit.DepartmentSubUnitId == createEmployee.SubUnit.DepartmentSubUnitId).FirstOrDefault();
 
-                sendEmail(employee.EmployeeEmail, manager.EmployeeEmail);
+               // sendEmail(employee.EmployeeEmail, manager.EmployeeEmail);
                 _context.Emoloyees.Add(employee);
                 var task = new Models.Task();
                 task.Status = (Models.Task.status)3;

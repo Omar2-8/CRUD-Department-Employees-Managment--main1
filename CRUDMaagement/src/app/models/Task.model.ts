@@ -4,8 +4,8 @@ import { NumberValueAccessor } from "@angular/forms";
 export interface Tasks{
   id:number,
   action:string,
-  comments:string,
-  status:number,
+  Comments:string,
+  Status:number,
   TaskEmployeeId:number
 }
 export interface RequestForm{
@@ -13,5 +13,5 @@ export interface RequestForm{
   employeeJob:string,
   employeeExperince:string,
   comments:string,
-  subUnitRequestId:number,
+  SubUnitRequestId:number,
 }

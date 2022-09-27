@@ -19,6 +19,7 @@ export class ItDepartmentDirectorTaskListComponent implements OnInit {
   ngOnInit(): void {
     this.WorkflowService.getTasks().subscribe({
       next:(t)=>{
+        debugger
         this.tasks=t;
       },
       error:(er)=>{

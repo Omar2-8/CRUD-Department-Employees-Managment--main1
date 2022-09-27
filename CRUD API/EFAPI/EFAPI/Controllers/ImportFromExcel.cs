@@ -66,7 +66,7 @@ namespace EFAPI.Controllers
                         obj.EmployeeName = row.GetCell(0).ToString();
                         obj.EmployeeEmail = row.GetCell(1).ToString();
                         obj.Salary = int.Parse(row.GetCell(2).ToString()); 
-                        obj.DepartmentEmployeeId = departments.First(item => item.DepartmentName == row.GetCell(3).ToString()).ID;
+                        //obj.DepartmentEmployeeId = departments.First(item => item.DepartmentName == row.GetCell(3).ToString()).ID;
                         list.Add(obj);
                     }
 
